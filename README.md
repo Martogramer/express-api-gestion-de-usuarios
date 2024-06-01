@@ -1,4 +1,4 @@
-```markdown
+
 # API de Gestión de Usuarios y Tareas
 
 ### 1. Objetivo de la API
@@ -144,4 +144,3 @@ Los ejemplos de datos están incluidos en los endpoints anteriores.
     ```
 
 5. Visita `http://localhost:3000/api-docs` para ver la documentación de la API generada con Swagger.
-```
