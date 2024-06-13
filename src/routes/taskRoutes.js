@@ -3,7 +3,7 @@ const router = express.Router();
 const taskController = require('../controllers/taskController');
 const auth = require('../middlewares/auth');
 const validate = require('../middlewares/validate');
-const taskSchema = require('../schemas/taskSchema');
+const taskSchema = require('../models/task');
 
 router.post('/', auth, validate(taskSchema), taskController.createTask);
 router.get('/:id', auth, taskController.getTask);

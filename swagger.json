@@ -1,0 +1,123 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "title": "User API",
+      "description": "API para gestionar usuarios en una aplicación de tareas",
+      "version": "1.0.0"
+    },
+    "host": "localhost:3000",
+    "basePath": "/",
+    "schemes": ["http"],
+    "paths": {
+      "/users": {
+        "post": {
+          "summary": "Crear un nuevo usuario",
+          "consumes": ["application/json"],
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "user",
+              "description": "El usuario a crear",
+              "schema": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Usuario creado exitosamente"
+            }
+          }
+        }
+      },
+      "/users/{id}": {
+        "get": {
+          "summary": "Obtener un usuario por ID",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Usuario encontrado"
+            },
+            "404": {
+              "description": "Usuario no encontrado"
+            }
+          }
+        },
+        "put": {
+          "summary": "Actualizar un usuario",
+          "consumes": ["application/json"],
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer"
+            },
+            {
+              "in": "body",
+              "name": "user",
+              "description": "Datos del usuario a actualizar",
+              "schema": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Usuario actualizado"
+            },
+            "404": {
+              "description": "Usuario no encontrado"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Eliminar un usuario",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Usuario eliminado"
+            },
+            "404": {
+              "description": "Usuario no encontrado"
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "User": {
+        "type": "object",
+        "required": ["name", "email", "password"],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+  
