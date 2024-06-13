@@ -7,6 +7,7 @@ const swaggerDocument = require("../swagger.json");
 const userRoutes = require("./routes/userRoutes");
 const taskRoutes = require("./routes/taskRoutes");
 const errorHandler = require("./middlewares/errorHandler");
+const preferenceRoutes = require('./routes/preferenceRoutes');
 require("dotenv").config();
 
 const app = express();
@@ -30,6 +31,7 @@ app.use(
   })
 );
 app.use(bodyParser.json());
+app.use(preferenceRoutes);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use("/users", userRoutes);
 app.use("/tasks", taskRoutes);
