@@ -7,8 +7,29 @@ const swaggerDocument = require("../swagger.json");
 const userRoutes = require("./routes/userRoutes");
 const taskRoutes = require("./routes/taskRoutes");
 const errorHandler = require("./middlewares/errorHandler");
-const preferenceRoutes = require('./routes/preferenceRoutes');
 require("dotenv").config();
+
+// SDK de Mercado Pago
+const { MercadoPagoConfig, Preference } = require("mercadopago");
+// Agrega credenciales
+const client = new MercadoPagoConfig({ accessToken: "YOUR_ACCESS_TOKEN" });
+
+const preference = new Preference(client);
+
+preference
+  .create({
+    body: {
+      items: [
+        {
+          title: "Mi producto",
+          quantity: 1,
+          unit_price: 2000,
+        },
+      ],
+    },
+  })
+  .then(console.log)
+  .catch(console.log);
 
 const app = express();
 
@@ -24,17 +45,16 @@ mongoose
   });
 app.use(
   cors({
-    origin: "https://intemplate-dp.vercel.app/",
+    origin: "http://localhost:5173/",
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Especifica los métodos HTTP permitidos
     allowedHeaders: ["Content-Type", "Authorization"], // Especifica los encabezados permitidos
   })
 );
 app.use(bodyParser.json());
-app.use(preferenceRoutes);
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-app.use("/users", userRoutes);
-app.use("/tasks", taskRoutes);
+app.use("/api/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use("/api/users", userRoutes);
+app.use("/api/tasks", taskRoutes);
 
 app.use(errorHandler);
 
