@@ -1,19 +1,38 @@
 const mongoose = require("mongoose");
 
-const productVariarionSchema = new mongoose.Schema({
+const productVariationSchema = new mongoose.Schema({
   color: {
     type: String,
     required: true,
   },
-  size: { type: String, required: true },
-  quantity: { type: Number, min: 0, required: true },
-  price: { type: Number, required: true },
+  size: {
+    type: String,
+    required: true,
+  },
+  quantity: {
+    type: Number,
+    min: 0,
+    required: true,
+  },
+  price: {
+    type: Number,
+    required: true,
+  },
 });
+
 const productSchema = new mongoose.Schema(
   {
-    name: { type: String, required: true },
-    description: { type: String },
-    price: { type: Number, required: true },
+    name: {
+      type: String,
+      required: true,
+    },
+    description: {
+      type: String,
+    },
+    price: {
+      type: Number,
+      required: true,
+    },
     category: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Category",
@@ -28,19 +47,39 @@ const productSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Category",
     },
-    stock: { type: Number, default: 0 },
-    imageUrl: { type: String },
+    stock: {
+      type: Number,
+      default: 0,
+    },
+    imageUrl: {
+      type: String,
+    },
     brand: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Brand",
       required: true,
     },
     image: [String],
-    variarions: [productVariarionSchema],
-    ratingAverage: { type: Number, default: 0 },
-    ratingQuantity: { type: Number, default: 0 },
-    reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: "Review" }],
+    variations: [productVariationSchema],
+    ratingAverage: {
+      type: Number,
+      default: 0,
+    },
+    ratingQuantity: {
+      type: Number,
+      default: 0,
+    },
+    reviews: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Review",
+      },
+    ],
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+  }
 );
-export const Product = mongoose.model("Product", productSchema);
+
+const Product = mongoose.model("Product", productSchema);
+module.exports = Product;

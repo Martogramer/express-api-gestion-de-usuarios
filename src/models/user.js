@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
-const Joi = require('joi');
+const Joi = require("joi");
 
 const userSchema = new mongoose.Schema(
   {
@@ -23,9 +23,8 @@ userSchema.pre("save", async function (next) {
 module.exports = Joi.object({
   name: Joi.string().min(3).required(),
   email: Joi.string().email().required(),
-  password: Joi.string().min(6).required()
+  password: Joi.string().min(6).required(),
 });
-
 
 userSchema.methods.comparePassword = async function (
   candidatePassword,
@@ -34,4 +33,5 @@ userSchema.methods.comparePassword = async function (
   return await bcrypt.compare(candidatePassword, userPassword);
 };
 
-module.exports = mongoose.model("User", userSchema);
+const User = mongoose.model("User", userSchema);
+module.exports = User;

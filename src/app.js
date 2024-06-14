@@ -6,6 +6,7 @@ const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("../swagger.json");
 const userRoutes = require("./routes/userRoutes");
 const taskRoutes = require("./routes/taskRoutes");
+const productRoutes = require('./routes/productRoutes');
 const errorHandler = require("./middlewares/errorHandler");
 require("dotenv").config();
 
@@ -43,6 +44,7 @@ mongoose
   .catch((err) => {
     console.error("MongoDB connection error:", err);
   });
+
 app.use(
   cors({
     origin: "http://localhost:5173/",
@@ -55,6 +57,7 @@ app.use(bodyParser.json());
 app.use("/api/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use("/api/users", userRoutes);
 app.use("/api/tasks", taskRoutes);
+app.use('/products', productRoutes);
 
 app.use(errorHandler);
 

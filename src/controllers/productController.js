@@ -12,7 +12,12 @@ exports.createProduct = async (req, res) => {
 
 exports.getProduct = async (req, res) => {
   try {
-    const product = await Product.findById(req.params.id);
+    const product = await Product.findById(req.params.id)
+    .populate('category')
+    .populate('vendor')
+    .populate('subCategory')
+    .populate('brand')
+    .populate('reviews');
     if (product) {
       res.json(product);
     } else {
@@ -51,7 +56,12 @@ exports.deleteProduct = async (req, res) => {
 
 exports.getAllProducts = async (req, res) => {
   try {
-    const products = await Product.find();
+    const products = await Product.find()
+    .populate('category')
+    .populate('vendor')
+    .populate('subCategory')
+    .populate('brand')
+    .populate('reviews');
     res.json(products);
   } catch (error) {
     res.status(400).json({ message: error.message });
